@@ -1,0 +1,16 @@
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        # Recursive solution
+        if inorder:   
+            # Find index of root node within in-order traversal
+            index = inorder.index(preorder.pop(0))
+            root = TreeNode(inorder[index])
+            
+            # Recursively generate left subtree starting from 
+            # 0th index to root index within in-order traversal
+            root.left = self.buildTree(preorder, inorder[:index])
+            
+            # Recursively generate right subtree starting from 
+            # next of root index till last index
+            root.right = self.buildTree(preorder, inorder[index+1:])
+            return root
